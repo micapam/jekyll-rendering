@@ -286,9 +286,13 @@ module Jekyll
     end
 
   end
+  
+  klasses = [Post, Page]
+  
+  klasses << Jekyll::Paginate::Pager if Jekyll.const_defined?(:Paginate)
 
   # Provide an engine-agnostic name for the hash representation.
-  [Post, Page, Pager].each { |klass|
+  klasses.each { |klass|
     klass.send(:alias_method, :to_hash, :to_liquid)
   }
 
